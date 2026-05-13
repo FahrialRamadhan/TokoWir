@@ -108,10 +108,14 @@
 
         /* --- Hero Section --- */
         .hero {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-            padding: 200px 20px 150px;
             background: var(--bg-color);
             position: relative;
+            padding: 20px;
         }
         .hero-content {
             max-width: 800px;

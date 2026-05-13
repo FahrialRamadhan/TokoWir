@@ -1,65 +1,79 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            Dashboard
-        </h2>
-    </x-slot>
-
-    <div class="py-6">
+    <div class="py-12 bg-white min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
 
-            {{-- Greeting --}}
-            <div style="background:linear-gradient(135deg,#3b82f6,#6366f1); color:white; border-radius:12px; padding:28px 32px; margin-bottom:24px;">
-                <h3 style="font-size:22px; font-weight:bold; margin:0 0 6px;">
-                    Selamat Datang, {{ Auth::user()->name }}! 👋
+            {{-- Greeting Section --}}
+            <div class="bg-white border border-gray-200 rounded-lg p-8 mb-8">
+                <h3 class="text-2xl font-semibold text-black mb-2 tracking-tight">
+                    Selamat Datang, {{ Auth::user()->name }}.
                 </h3>
-                <p style="margin:0; opacity:0.85;">Kelola toko kamu dengan mudah melalui dashboard ini.</p>
+                <p class="text-gray-500 font-light">Kelola operasional toko Anda dengan efisien melalui panel ini.</p>
             </div>
 
             {{-- Stats Cards --}}
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:16px; margin-bottom:24px;">
-
-                <div style="background:white; border-radius:10px; padding:20px 24px; box-shadow:0 1px 4px rgba(0,0,0,0.08); border-left:4px solid #3b82f6;">
-                    <p style="margin:0 0 4px; color:#6b7280; font-size:13px;">Total Produk</p>
-                    <h2 style="margin:0; font-size:32px; font-weight:bold; color:#1d4ed8;">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                
+                {{-- Card 1 --}}
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:border-black transition-colors duration-300 group">
+                    <p class="text-sm font-medium text-gray-500 mb-2 group-hover:text-black transition-colors">Total Produk</p>
+                    <h2 class="text-4xl font-bold text-black tracking-tight mb-1">
                         {{ \App\Models\Product::count() }}
                     </h2>
-                    <p style="margin:4px 0 0; color:#6b7280; font-size:12px;">produk terdaftar</p>
+                    <p class="text-xs text-gray-400">Produk terdaftar di sistem</p>
                 </div>
 
-                <div style="background:white; border-radius:10px; padding:20px 24px; box-shadow:0 1px 4px rgba(0,0,0,0.08); border-left:4px solid #10b981;">
-                    <p style="margin:0 0 4px; color:#6b7280; font-size:13px;">Total Pengguna</p>
-                    <h2 style="margin:0; font-size:32px; font-weight:bold; color:#059669;">
+                {{-- Card 2 --}}
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:border-black transition-colors duration-300 group">
+                    <p class="text-sm font-medium text-gray-500 mb-2 group-hover:text-black transition-colors">Total Pengguna</p>
+                    <h2 class="text-4xl font-bold text-black tracking-tight mb-1">
                         {{ \App\Models\User::count() }}
                     </h2>
-                    <p style="margin:4px 0 0; color:#6b7280; font-size:12px;">akun terdaftar</p>
+                    <p class="text-xs text-gray-400">Akun pengguna terdaftar</p>
                 </div>
 
-                <div style="background:white; border-radius:10px; padding:20px 24px; box-shadow:0 1px 4px rgba(0,0,0,0.08); border-left:4px solid #f59e0b;">
-                    <p style="margin:0 0 4px; color:#6b7280; font-size:13px;">Login Sebagai</p>
-                    <h2 style="margin:0; font-size:18px; font-weight:bold; color:#b45309; word-break:break-all;">
+                {{-- Card 3 --}}
+                <div class="bg-white border border-gray-200 rounded-lg p-6 hover:border-black transition-colors duration-300 group">
+                    <p class="text-sm font-medium text-gray-500 mb-2 group-hover:text-black transition-colors">Sesi Aktif</p>
+                    <h2 class="text-lg font-semibold text-black truncate mb-1" title="{{ Auth::user()->email }}">
                         {{ Auth::user()->email }}
                     </h2>
-                    <p style="margin:4px 0 0; color:#6b7280; font-size:12px;">akun aktif</p>
+                    <p class="text-xs text-gray-400">Login sebagai administrator</p>
                 </div>
 
             </div>
 
             {{-- Quick Access --}}
-            <div style="background:white; border-radius:10px; padding:24px; box-shadow:0 1px 4px rgba(0,0,0,0.08);">
-                <h4 style="margin:0 0 16px; font-size:16px; font-weight:bold; color:#374151;">⚡ Akses Cepat</h4>
-                <div style="display:flex; gap:12px; flex-wrap:wrap;">
-                    <a href="{{ route('products.index') }}"
-                       style="background:#3b82f6; color:white; padding:10px 20px; border-radius:6px; text-decoration:none; font-size:14px;">
-                        📦 Lihat Produk
+            <div class="bg-white border border-gray-200 rounded-lg p-8">
+                <div class="flex items-center gap-3 mb-6">
+                    <svg class="w-5 h-5 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                    </svg>
+                    <h4 class="text-lg font-semibold text-black tracking-tight">Akses Cepat</h4>
+                </div>
+                
+                <div class="flex flex-wrap gap-4">
+                    {{-- Button: Lihat Produk --}}
+                    <a href="{{ route('products.index') }}" class="inline-flex items-center gap-2 px-6 py-2.5 bg-white border border-gray-300 text-black text-sm font-medium rounded hover:border-black hover:bg-gray-50 transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                        </svg>
+                        Katalog Produk
                     </a>
-                    <a href="{{ route('products.create') }}"
-                       style="background:#10b981; color:white; padding:10px 20px; border-radius:6px; text-decoration:none; font-size:14px;">
-                        ➕ Tambah Produk
+                    
+                    {{-- Button: Tambah Produk (Primary - Black) --}}
+                    <a href="{{ route('products.create') }}" class="inline-flex items-center gap-2 px-6 py-2.5 bg-black border border-black text-white text-sm font-medium rounded hover:bg-gray-800 transition-all shadow-sm">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                        </svg>
+                        Tambah Data Baru
                     </a>
-                    <a href="{{ route('profile.edit') }}"
-                       style="background:#6366f1; color:white; padding:10px 20px; border-radius:6px; text-decoration:none; font-size:14px;">
-                        👤 Edit Profil
+                    
+                    {{-- Button: Edit Profil --}}
+                    <a href="{{ route('profile.edit') }}" class="inline-flex items-center gap-2 px-6 py-2.5 bg-white border border-gray-300 text-black text-sm font-medium rounded hover:border-black hover:bg-gray-50 transition-all">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                        </svg>
+                        Pengaturan Akun
                     </a>
                 </div>
             </div>
